@@ -7,12 +7,22 @@ function trataErro(erro) {
 
 function pegaArquivo(caminhoDoArquivo) {
   const encoding = "utf-8";
-  fs.readFile(caminhoDoArquivo, encoding, (erro, text) => {
-    if (erro) {
-      trataErro(erro);
-    }
-    console.log(chalk.blue(text));
-  });
+  fs.promises
+    .readFile(caminhoDoArquivo, encoding)
+    .then((texto) => {
+      console.log(chalk.green(texto));
+    })
+    .catch(trataErro);
 }
+
+// function pegaArquivo(caminhoDoArquivo) {
+//   const encoding = "utf-8";
+//   fs.readFile(caminhoDoArquivo, encoding, (erro, text) => {
+//     if (erro) {
+//       trataErro(erro);
+//     }
+//     console.log(chalk.blue(text));
+//   });
+// }
 
 pegaArquivo("./arquivos/texto.md");
